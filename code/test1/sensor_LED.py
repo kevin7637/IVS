@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import neopixel
+import board
 
 # 초음파 센서 핀 설정
 Tr = 11
@@ -21,12 +22,18 @@ right_B = 25
 
 # WS2812 LED 설정
 LED_COUNT = 8
-LED_PIN = 18
+LED_PIN = board.D18
 LED_BRIGHTNESS = 50
 LED_ORDER = neopixel.GRB
 
 on = GPIO.LOW
 off = GPIO.HIGH
+
+def ws2812_control(color):
+    pixels = neopixel.NeoPixel(LED_PIN, LED_COUNT, brightness=LED_BRIGHTNESS / 255, auto_write=False, pixel_order=LED_ORDER)
+    for i in range(LED_COUNT):
+        pixels[i] = color
+    pixels.show()
 
 def setup():
     GPIO.setwarnings(False)
