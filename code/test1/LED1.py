@@ -3,10 +3,12 @@ import time
 pin_led_1 = 5
 pin_led_2 = 6
 pin_led_3 = 13
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(pin_led_1, GPIO.OUT)
-GPIO.setup(pin_led_2, GPIO.OUT)
-GPIO.setup(pin_led_3, GPIO.OUT)
+def setup():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(pin_led_1, GPIO.OUT)
+    GPIO.setup(pin_led_2, GPIO.OUT)
+    GPIO.setup(pin_led_3, GPIO.OUT)
+    
 def control_led(pin, state):
     GPIO.output(pin, state)
     try:
@@ -28,4 +30,5 @@ def control_led(pin, state):
     GPIO.cleanup()
     
 if __name__ == "__main__":
+    setup()
     control_led(pin_led_1, True)
