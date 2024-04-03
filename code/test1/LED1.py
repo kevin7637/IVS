@@ -26,3 +26,6 @@ def control_led(pin, state):
     except KeyboardInterrupt:
         pass
     GPIO.cleanup()
+    
+if __name__ == "__main__":
+    control_led(pin_led_1, True)
