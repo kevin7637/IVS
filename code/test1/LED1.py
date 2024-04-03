@@ -1,4 +1,4 @@
-import RPi.GPIOas GPIO
+import RPi.GPIO as GPIO
 import time
 pin_led_1 = 5
 pin_led_2 = 6
