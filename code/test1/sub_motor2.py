@@ -15,23 +15,18 @@ def main():
     print("Connect a servo to any pin. It will rotate to random angles")
     pwm = PCA9685()
     pwm.set_pwm_freq(HERTZ)
-    millis = 1.5
-    tick = calc_ticks(millis, HERTZ)
+    tick = 300
     pwm.set_pwm(0, 0, tick)
     time.sleep(2)
 
-    r = 201 #random.random()
-    while r != 400:
-        r += 1
-        millis = map_value(r, 1, 2)
-        tick = calc_ticks(millis, HERTZ)
-        pwm.set_pwm(0, 0, tick)
+    r = 200 #random.random()
+    while r <= 400:
+        r += 30
+        pwm.set_pwm(0, 0, r)
         time.sleep(1)
-    while r != 200:
-        r -= 1
-        millis = map_value(r, 1, 2)
-        tick = calc_ticks(millis, HERTZ)
-        pwm.set_pwm(0, 0, tick)
+    while r >= 200:
+        r -= 30
+        pwm.set_pwm(0, 0, r)
         time.sleep(1) 
 if __name__ == "__main__":
     main()
