@@ -9,15 +9,14 @@ ACC_MAX = 2         # maximum acceleration [m/ss]
 K_MAX = 4           # maximum curvature [1/m]
 
 TARGET_SPEED = 1    # target speed [m/s] #횡 방향 속도를 최대 몇까지 할래
-LANE_WIDTH = 0.2   # lane width [m] 
+LANE_WIDTH = 0.3    # lane width [m] 
                     #차선 넓이 만큼, or 차량 넓이 만큼
-
-COL_CHECK = 0.5    # collision check distance [m] #충돌 판단
+COL_CHECK = 0.1     # collision check distance [m] #충돌 판단
 
 MIN_T = 1           # minimum terminal time [s]
-MAX_T = 2           # maximum terminal time [s]
+MAX_T = 3           # maximum terminal time [s]
 DT_T = 0.5          # dt for terminal time [s] : MIN_T 에서 MAX_T 로 어떤 dt 로 늘려갈지를 나타냄
-DT = 0.1            # timestep for update
+DT = 0.2            # timestep for update
 
 K_J = 0.1           # weight for jerk
 K_T = 0.1           # weight for terminal time
@@ -26,7 +25,7 @@ K_V = 1.0           # weight for getting to target speed
 K_LAT = 1.0         # weight for lateral direction
 K_LON = 1.0         # weight for longitudinal direction
 
-DF_SET = np.array([LANE_WIDTH/2, 0, -LANE_WIDTH/2])
+DF_SET = np.array([LANE_WIDTH, 0, -LANE_WIDTH])
 
 FAIL = -1
 def calc_frenet_paths(si, si_d, si_dd, sf_d, sf_dd, di, di_d, di_dd, df_d, df_dd, opt_d):
@@ -195,8 +194,7 @@ class FrenetPath:
         # combined traj in global frame
         
 def collision_check(fp, obs):
-    for i in range(len(obs[:, 0])):
-
+    for i in range(len(obs[:,0])):
         d = [((_x - obs[i, 0]) ** 2 + (_y - obs[i, 1]) ** 2)
              for (_x, _y) in zip(fp.s, fp.d)]
         collision = any([di <= COL_CHECK ** 2 for di in d])
@@ -209,12 +207,15 @@ def collision_check(fp, obs):
 def check_path(fplist, obs):
     ok_ind = []
     for i, _path in enumerate(fplist):
+        '''
         acc_squared = [(abs(a_s**2 + a_d**2)) for (a_s, a_d) in zip(_path.s_dd, _path.d_dd)]
         if any([v > V_MAX for v in _path.s_d]):  # Max speed check
             continue
         elif any([acc > ACC_MAX**2 for acc in acc_squared]):
             continue
-        elif collision_check(_path, obs):
+        '''
+        if collision_check(_path, obs):
+            print("pass")
             continue
 
         ok_ind.append(i)
@@ -243,7 +244,7 @@ def frenet_optimal_planning(si, si_d, si_dd, sf_d, sf_dd, di, di_d, di_dd, df_d,
 
     return fplist, _opt_ind
 
-def test(obs,opt_d):
+def Trejectory(obs,opt_d):
     s = 0
     d = 0
     v = 1 #현재 내 차량 속도

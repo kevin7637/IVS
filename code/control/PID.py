@@ -3,7 +3,7 @@ class PD_Controller(object):
         self.kp = P_Gain
         self.kd = D_Gain
         reference = 0
-        self.pre = reference - measure
+        self.error_pre = reference - measure
         self.step_time = step_time
         self.u = 0.0
             
@@ -24,10 +24,10 @@ def yaw_controll(error):
     MAX_ERROR = 0.3
     servo_tick = (-error + MAX_ERROR) * (RIGHT_MAX - LEFT_MAX) / (MAX_ERROR - (-MAX_ERROR)) + LEFT_MAX
     
-    if servo_tick > 500:
-        servo_tick = 500
-    if servo_tick  <100:
-        servo_tick = 100
+    if servo_tick > 400:
+        servo_tick = 400
+    if servo_tick  <200:
+        servo_tick = 200
     
     return servo_tick
 
