@@ -19,24 +19,25 @@ if __name__ == "__main__":
     speed_set = 50
     tick = 300
     opt = 0
-    try:
-        move(speed_set, 'forward')
-        pwm.set_pwm(0, 0, tick)
-        '''
-        obs = np.array([[0.6, WIDTH]])
-        path, opt= Trejectory(obs,opt)
-        if opt == FAIL:
-            print("FAIL")
-        else:
-            print("path",path.d)
-            for measure in path.d:
-                controller.ControllerInput(measure)
-                print("error",controller.u)
-                tick = yaw_controll(controller.u)
-                print("tick",tick)
-                #pwm.set_pwm(0, 0, tick)
-        '''
-    except KeyboardInterrupt:
-        destroy()
+    while True:
+        try:
+            move(speed_set, 'forward')
+            pwm.set_pwm(0, 0, tick)
+            '''
+            obs = np.array([[0.6, WIDTH]])
+            path, opt= Trejectory(obs,opt)
+            if opt == FAIL:
+                print("FAIL")
+            else:
+                print("path",path.d)
+                for measure in path.d:
+                    controller.ControllerInput(measure)
+                    print("error",controller.u)
+                    tick = yaw_controll(controller.u)
+                    print("tick",tick)
+                    #pwm.set_pwm(0, 0, tick)
+            '''
+        except KeyboardInterrupt:
+            destroy()
         
     

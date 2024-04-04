@@ -29,11 +29,11 @@ def destroy():
     GPIO.cleanup()
     
 def move(speed, direction): # speed = 0~100
-    if direction == 'forward':
+    if direction == 'backward':
         GPIO.output(Motor_A_Pin1, GPIO.HIGH)
         GPIO.output(Motor_A_Pin2, GPIO.LOW)
         GPIO.output(Motor_A_EN, GPIO.HIGH)
-    elif direction == 'backward':
+    elif direction == 'forward':
         GPIO.output(Motor_A_Pin1, GPIO.LOW)
         GPIO.output(Motor_A_Pin2, GPIO.HIGH)
         GPIO.output(Motor_A_EN, GPIO.HIGH)
