@@ -24,8 +24,9 @@ if __name__ == "__main__":
     while True:
         try:
             distance = checkdist()
-            if distance:
-                motorStop
+            print(distance)
+            if distance < 0.5:
+                motorStop()
             else:
                 speed_set = 50
                 move(speed_set, 'forward')
