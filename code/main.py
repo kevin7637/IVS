@@ -23,7 +23,7 @@ if __name__ == "__main__":
     pwm.set_pwm(0, 0, tick)
     while True:
         try:
-            distance = detectObstacle()
+            distance = checkdist()
             if distance:
                 motorStop
             else:

@@ -35,4 +35,4 @@ def detectObstacle():
         if distance < 50: # 100cm 이내에 장애물이 있을 경우
             return distance
         else:
-            return None
+            return False
