@@ -1,7 +1,6 @@
 from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
-from move.sonic import*
 from Adafruit_PCA9685 import PCA9685
 
 HERTZ = 50
@@ -23,10 +22,11 @@ if __name__ == "__main__":
     pwm.set_pwm(0, 0, tick)
     while True:
         try:
-            distance = checkdist()
+            distance = detectObstacle()
             print(distance)
             if distance < 0.5:
                 motorStop()
+                time.sleep(1) 
             else:
                 speed_set = 50
                 move(speed_set, 'forward')
