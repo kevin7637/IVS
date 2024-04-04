@@ -21,16 +21,18 @@ def detectObstacle():
         time.sleep(0.00001)
         GPIO.output(Tr, False)
         
-        while GPIO.input(Ec) == 0:
-            pulse_start = time.time()
-        while GPIO.input(Ec) == 1:
-            pulse_end = time.time()
+        while GPIO.input(Ec):
+            pass
+        pulse_start = time.time()
+        while GPIO.input(Ec):
+            pass
+        pulse_end = time.time()
         
         pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17150
+        distance = pulse_duration * 17150 #cm/s
         distance = round(distance, 2)
         
-        if distance < 100: # 100cm 이내에 장애물이 있을 경우
+        if distance < 50: # 100cm 이내에 장애물이 있을 경우
             return distance
         else:
             return None
