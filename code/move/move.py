@@ -19,6 +19,8 @@ def setup(): # Motor initialization
     GPIO.setup(Motor_A_EN, GPIO.OUT)
     GPIO.setup(Motor_A_Pin1, GPIO.OUT)
     GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+    pwm_A = GPIO.PWM(Motor_A_EN, HERTZ)
+    pwm_A.start(0)
     motorStop()
     
     pwm = PCA9685()
@@ -34,6 +36,7 @@ def motorStop(): # Motor stops
     GPIO.output(Motor_A_Pin1, GPIO.LOW)
     GPIO.output(Motor_A_Pin2, GPIO.LOW)
     GPIO.output(Motor_A_EN, GPIO.LOW)
+    pwm_A.ChangeDutyCycle(0)
     
 def destroy():
     motorStop()
@@ -43,15 +46,21 @@ def move(speed, direction): # speed = 0~100
     if direction == 'backward':
         GPIO.output(Motor_A_Pin1, GPIO.HIGH)
         GPIO.output(Motor_A_Pin2, GPIO.LOW)
-        GPIO.output(Motor_A_EN, GPIO.HIGH)
+        #GPIO.output(Motor_A_EN, GPIO.HIGH)
     elif direction == 'forward':
         GPIO.output(Motor_A_Pin1, GPIO.LOW)
         GPIO.output(Motor_A_Pin2, GPIO.HIGH)
-        GPIO.output(Motor_A_EN, GPIO.HIGH)
+        #GPIO.output(Motor_A_EN, GPIO.HIGH)
     else:
         motorStop()
+        return
+    if speed > 100:
+        speed = 100
+    elif speed < 0:
+        speed = 0
+    pwm_A.ChangeDutyCycle(speed)
 
-def checkdist():
+def detectObstacle():
     # 초음파 센서로 거리 측정
     for i in range(5):
         GPIO.output(Tr, GPIO.LOW)
