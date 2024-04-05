@@ -15,8 +15,8 @@ class PD_Controller(object):
         self.pre = error
         
 
-def yaw_controll(error):
-    #300이 0도, 100 우회전, 500이 좌회전
+def yaw_controll(error,MAX_ERROR):
+    #300이 0도, 250 우회전, 350이 좌회전
     #오차는 lane_width만큼 생김 좌 0.2m, 우 -0.2
     #yaw값은 servo_tick = (-error + 0.3) * (500 - 100) / (0.3 - (-0.3)) + 100
     RIGHT_MAX = 500

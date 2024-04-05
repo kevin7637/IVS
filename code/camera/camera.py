@@ -1,153 +1,59 @@
-import cv2
 import numpy as np
-import RPi.GPIO as GPIO
+import cv2
+import math
+import random
 
-PWMA = 17
-AIN1   =  27
-AIN2   =  18
-
-PWMB = 4
-BIN1   = 14
-BIN2  =  15
-    
-def motor_go(speed):
-    L_Motor.ChangeDutyCycle(speed)
-    GPIO.output(AIN2,True)#AIN2
-    GPIO.output(AIN1,False) #AIN1
-    R_Motor.ChangeDutyCycle(speed)
-    GPIO.output(BIN2,True)#BIN2
-    GPIO.output(BIN1,False) #BIN1
-    
-def motor_right(speed):
-    L_Motor.ChangeDutyCycle(speed)
-    GPIO.output(AIN2,True)#AIN2
-    GPIO.output(AIN1,False) #AIN1
-    R_Motor.ChangeDutyCycle(0)
-    GPIO.output(BIN2,False)#BIN2
-    GPIO.output(BIN1,True) #BIN1
-    
-def motor_left(speed):
-    L_Motor.ChangeDutyCycle(0)
-    GPIO.output(AIN2,False)#AIN2
-    GPIO.output(AIN1,True) #AIN1
-    R_Motor.ChangeDutyCycle(speed)
-    GPIO.output(BIN2,True)#BIN2
-    GPIO.output(BIN1,False) #BIN1
-    
-def motor_stop():
-    GPIO.output(AIN1,False)
-    GPIO.output(AIN2,True)
-    L_Motor.ChangeDutyCycle(0)
-    GPIO.output(BIN1,False)
-    GPIO.output(BIN2,True)
-    R_Motor.ChangeDutyCycle(0)
-        
-GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(AIN2,GPIO.OUT)
-GPIO.setup(AIN1,GPIO.OUT)
-GPIO.setup(PWMA,GPIO.OUT)
-
-GPIO.setup(BIN1,GPIO.OUT)
-GPIO.setup(BIN2,GPIO.OUT)
-GPIO.setup(PWMB,GPIO.OUT)
-
-SW1 = 5
-SW2 = 6
-SW3 = 13
-SW4 = 19
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(SW1,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(SW2,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(SW3,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(SW4,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-
-LED1 = 26
-LED2 = 16
-LED3 = 20
-LED4 = 21
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(LED1,GPIO.OUT)
-GPIO.setup(LED2,GPIO.OUT)
-GPIO.setup(LED3,GPIO.OUT)
-GPIO.setup(LED4,GPIO.OUT)
-
-L_Motor= GPIO.PWM(PWMA,100)
-L_Motor.start(0)
-
-R_Motor = GPIO.PWM(PWMB,100)
-R_Motor.start(0)
+import cv2   #OpenCV를 사용하기위해 import해줍니다.
 
 def main():
-    camera = cv2.VideoCapture(0)
-    camera.set(3,160) 
-    camera.set(4,120)
-
-    while( camera.isOpened() ):
-        ret, frame = camera.read()
-        frame = cv2.flip(frame,-1)
-        cv2.imshow('normal',frame)
-        
-        crop_img =frame[30:100, 0:160]
-        
-        gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
+    camera = cv2.VideoCapture(-1) #카메라를 비디오 입력으로 사용. -1은 기본설정이라는 뜻
+    camera.set(3,640)  #띄울 동영상의 가로사이즈 640픽셀
+    camera.set(4,480)  #세로사이즈 480픽셀
     
-        blur = cv2.GaussianBlur(gray,(5,5),0)
+    while( camera.isOpened() ):  #카메라가 Open되어 있다면,
+        _, image = camera.read()
+        point_tracking(image)
         
-        ret,thresh1 = cv2.threshold(blur,60,255,cv2.THRESH_BINARY_INV)
-        
-        mask = cv2.erode(thresh1, None, iterations=2)
-        mask = cv2.dilate(mask, None, iterations=2)
-        cv2.imshow('mask',mask)
-    
-        contours,hierarchy = cv2.findContours(mask.copy(), 1, cv2.CHAIN_APPROX_NONE)
-        
-        if len(contours) > 0:
-            c = max(contours, key=cv2.contourArea)
-            M = cv2.moments(c)
-            
-            cx = int(M['m10']/M['m00'])
-            cy = int(M['m01']/M['m00'])
-            
-            if cx <= 65:              
-                print("Turn Left!")
-                motor_left(40)
-                GPIO.output(LED1,GPIO.HIGH)
-                GPIO.output(LED2,GPIO.LOW)
-                GPIO.output(LED3,GPIO.HIGH)
-                GPIO.output(LED4,GPIO.LOW)
-            elif cx >= 90:
-                print("Turn Right")
-                motor_right(40)
-                GPIO.output(LED1,GPIO.LOW)
-                GPIO.output(LED2,GPIO.HIGH)
-                GPIO.output(LED3,GPIO.LOW)
-                GPIO.output(LED4,GPIO.HIGH)
-            else:
-                print("go")
-                motor_go(40)
-                GPIO.output(LED1,GPIO.HIGH)
-                GPIO.output(LED2,GPIO.HIGH)
-                GPIO.output(LED3,GPIO.LOW)
-                GPIO.output(LED4,GPIO.LOW)
-        
-            if GPIO.input(SW1) == 1 or GPIO.input(SW2) == 1 or GPIO.input(SW3) == 1 or GPIO.input(SW4) == 1 :
-                motor_stop()
-                GPIO.output(LED1,GPIO.LOW)
-                GPIO.output(LED2,GPIO.LOW)
-                GPIO.output(LED3,GPIO.LOW)
-                GPIO.output(LED4,GPIO.LOW)
-                break
-
-        if cv2.waitKey(1) == ord('q'):
+        if cv2.waitKey(1) == ord('q'):  #만약 q라는 키보드값을 읽으면 종료합니다.
             break
+        
+    cv2.destroyAllWindows() #이후 openCV창을 종료합니다.
     
-    cv2.destroyAllWindows()
+def point_tracking(image):
+    _, binary_image = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY)
+
+    contours, _ = cv2.findContours(binary_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]  
+
+    longest_contour = max(contours, key=lambda c: cv2.arcLength(c, closed=False))
+    longest_contour = max(contours, key=lambda c: cv2.arcLength(c, closed=False))
+
+    mask = np.zeros(image.shape, dtype=np.uint8)
+
+    cv2.drawContours(mask, [longest_contour], -1, color=0, thickness=-1)
+
+    M = cv2.moments(mask)
+
+    if M["m00"] != 0:
+        centroid_x = int(M["m10"] / M["m00"])
+        centroid_y = int(M["m01"] / M["m00"])
+    else:
+        centroid_x = mask.shape[1] // 2
+        centroid_y = mask.shape[0] // 2
+
+    output_image = image.copy()
+    cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
+
+    output_image = cv2.cvtColor(output_image, cv2.COLOR_BGR2RGB)
+
+    output_image_path = '/mnt/data/road_with_central_point.png'
+    cv2.imwrite(output_image_path, output_image)
+
+    cv2.imshow("a", output_image)
+
+    central_coordinates = (centroid_x, centroid_y)
+    central_coordinates, output_image_path
 
 if __name__ == '__main__':
     main()
-    GPIO.cleanup()
