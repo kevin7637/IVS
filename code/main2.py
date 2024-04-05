@@ -12,7 +12,7 @@ pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
 setup()
 measure = 0
-step_time = 0.001
+step_time = 0.1
 controller = PD_Controller(measure, step_time)
 speed_set = 50
 tick = 300
