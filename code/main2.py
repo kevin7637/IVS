@@ -52,6 +52,7 @@ if __name__ == "__main__":
                 last_centroid = centroid
             print(last_centroid[0])
             controller.ControllerInput(last_centroid[0])
+            print(controller.u)
             servo_tick = yaw_controll(controller.u,320)
             print(servo_tick)
             #pwm.set_pwm(0, 0, servo_tick)

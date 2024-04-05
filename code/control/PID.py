@@ -1,5 +1,5 @@
 class PD_Controller(object):
-    def __init__(self,measure, step_time, P_Gain=0.6, D_Gain=1.2):
+    def __init__(self,measure, step_time, P_Gain=0.1, D_Gain=1.2):
         self.kp = P_Gain
         self.kd = D_Gain
         reference = 0
