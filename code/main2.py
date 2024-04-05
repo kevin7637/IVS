@@ -17,13 +17,11 @@ tick = 300
 opt = 0
 cnt = 0
 pwm.set_pwm(0, 0, tick)
-
-global last_centroid
-global camera
 camera = cv2.VideoCapture(0) 
 camera.set(3,640)  
 camera.set(4,480)  
 
+speed_set = 20
 
 #camera.release()
 
@@ -34,7 +32,7 @@ def distance_stop(distance):
         motorStop()
         time.sleep(0.1) 
     else:
-        speed_set = 50
+        speed_set = 20
         move(speed_set, 'forward')
 
 
@@ -42,12 +40,14 @@ def distance_stop(distance):
 if __name__ == "__main__":
     while True:
         try:
+            move(speed_set, 'forward')
             #distance = detectObstacle()
             #distance_stop(distance)
             #좌표 = camera
             _, image = camera.read()
-            centroid,image = point_tracking(image)
-            cv2.imshow("image",image)
+            centroid,out_image = point_tracking(image)
+            cv2.imshow("image",out_image)
+            cv2.waitKey(1)
             if centroid:
                 last_centroid = centroid
             print(last_centroid)
