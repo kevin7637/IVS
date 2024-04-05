@@ -19,6 +19,7 @@ def setup(): # Motor initialization
     GPIO.setup(Motor_A_EN, GPIO.OUT)
     GPIO.setup(Motor_A_Pin1, GPIO.OUT)
     GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+    global pwm_A
     pwm_A = GPIO.PWM(Motor_A_EN, HERTZ)
     pwm_A.start(0)
     motorStop()

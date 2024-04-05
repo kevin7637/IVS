@@ -34,7 +34,8 @@ if __name__ == "__main__":
             #좌표 = camera
             #coord = camera()
             controller.ControllerInput(-200)
-            yaw_controll(controller.u)
+            servo_tick = yaw_controll(controller.u,320)
+            pwm.set_pwm(0, 0, servo_tick)
         except KeyboardInterrupt:
             destroy()
             
