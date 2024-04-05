@@ -66,8 +66,8 @@ if __name__ == "__main__":
             #좌표 = camera
             _, image = camera.read()
             centroid,out_image = point_tracking(image)
-            cv2.imshow("image",out_image)
-            cv2.waitKey(1)
+            #cv2.imshow("image",out_image)
+            #cv2.waitKey(1)
             status_right, status_middle, status_left = line_tracking()
             if status_right == 1 or status_middle == 1 or status_left == 1:
                 if centroid:
