@@ -19,6 +19,7 @@ def camera_main():
         last_centroid = centroid
     #camera.release()
     return last_centroid
+
 def point_tracking(image):
     global last_centroid
 
@@ -41,7 +42,7 @@ def point_tracking(image):
             output_image = image.copy()
             cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
 
-            cv2.imshow("Output", output_image)
-            return (centroid_x, centroid_y)  # Return the new centroid
+            #cv2.imshow("Output", output_image)
+            return (centroid_x, centroid_y),output_image  # Return the new centroid
 
     return last_centroid  # Return the last known centroid if no new centroid was calculated
