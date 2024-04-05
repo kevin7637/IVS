@@ -2,7 +2,7 @@ from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
-
+from camera.camera import *
 HERTZ = 50
 FAIL = -1
 WIDTH = 0
@@ -32,9 +32,11 @@ if __name__ == "__main__":
             distance = detectObstacle()
             distance_stop(distance)
             #좌표 = camera
-            #coord = camera()
+            coord = camera_main()
+            print(coord)
             controller.ControllerInput(-200)
             servo_tick = yaw_controll(controller.u,320)
+            print(servo_tick)
             pwm.set_pwm(0, 0, servo_tick)
         except KeyboardInterrupt:
             destroy()
