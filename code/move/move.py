@@ -73,7 +73,7 @@ def detectObstacle():
         GPIO.output(Tr, GPIO.LOW)
         time.sleep(0.000002)
         GPIO.output(Tr, GPIO.HIGH)
-        time.sleep(0.000015)
+        time.sleep(0.00001)
         GPIO.output(Tr, GPIO.LOW)
         
         while not GPIO.input(Ec):
