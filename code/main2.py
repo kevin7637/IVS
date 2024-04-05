@@ -22,7 +22,8 @@ pwm.set_pwm(0, 0, tick)
 camera = cv2.VideoCapture(0) 
 camera.set(3,640)  
 camera.set(4,480)  
-
+servo_tick = 300
+pwm.set_pwm(0, 0, servo_tick)
 speed_set = 20
 
 #camera.release()
