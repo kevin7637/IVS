@@ -26,8 +26,50 @@ camera.set(4,480)
 speed_set = 20
 
 #camera.release()
+Motor_B_EN = 4    
+Motor_B_Pin1 = 14 
+Motor_B_Pin2 = 15 
+Motor_A_EN = 17
+Motor_A_Pin1 = 27
+Motor_A_Pin2 = 18
+line_pin_right = 19
+line_pin_middle = 16
+line_pin_left = 20
 
+Tr = 11           
+Ec = 8  
+HERTZ = 50
 
+def setup(): # Motor initialization
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(Motor_A_EN, GPIO.OUT)
+    GPIO.setup(Motor_A_Pin1, GPIO.OUT)
+    GPIO.setup(Motor_A_Pin2, GPIO.OUT)
+    global pwm_A
+    pwm_A = GPIO.PWM(Motor_A_EN, HERTZ)
+    pwm_A.start(0)
+    motorStop()
+    
+    pwm = PCA9685()
+    pwm.set_pwm_freq(HERTZ)
+    
+    
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(Tr, GPIO.OUT)
+    GPIO.setup(Ec, GPIO.IN)
+    
+    GPIO.setup(line_pin_right, GPIO.IN)
+    GPIO.setup(line_pin_middle, GPIO.IN)
+    GPIO.setup(line_pin_left, GPIO.IN)
+    
+def line_tracking():
+    # 라인 트래킹 센서 측정
+    status_right = GPIO.input(line_pin_right)
+    status_middle = GPIO.input(line_pin_middle)
+    status_left = GPIO.input(line_pin_left)
+    return status_right, status_middle, status_left
 
 def distance_stop(distance):
     if distance < 0.5:
@@ -50,20 +92,31 @@ if __name__ == "__main__":
             centroid,out_image = point_tracking(image)
             cv2.imshow("image",out_image)
             cv2.waitKey(1)
-            if centroid:
-                last_centroid = centroid
-                print(last_centroid[0])
-                controller.ControllerInput(last_centroid[0])
-                print(controller.u)
-                if last_centroid[0] > 370:
-                    servo_tick = 350
-                elif last_centroid[0] < 270:
-                    servo_tick = 250
-                else:
+            status_right, status_middle, status_left = line_tracking()
+            if status_right == 1 or status_middle == 1 or status_left == 1:
+                if centroid:
+                    last_centroid = centroid
+                    print(last_centroid[0])
+                    controller.ControllerInput(last_centroid[0])
+                    print(controller.u)
+                    if last_centroid[0] > 370:
+                        #servo_tick = 350
+                        servo_tick = yaw_controll(controller.u,320)
+                    elif last_centroid[0] < 270:
+                        #servo_tick = 250
+                        servo_tick = yaw_controll(controller.u,320)
+                    else:
+                        servo_tick = 300
+                        #servo_tick = yaw_controll(controller.u,320)
+                        #print(servo_tick)
+            else:
+                if status_right == 0 or (status_right == 0 and status_middle == 0):# 오른쪽이 나가면 왼쪽으로
+                    servo_tick = 200
+                elif status_left == 0 or (status_left == 0 and status_middle == 0 )
                     servo_tick = 300
-                    #servo_tick = yaw_controll(controller.u,320)
-                    #print(servo_tick)
-                pwm.set_pwm(0, 0, servo_tick)
+                else:
+                    move(speed_set, 'backward')
+            pwm.set_pwm(0, 0, servo_tick)
             time.sleep(0.1)
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 

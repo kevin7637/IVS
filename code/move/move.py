@@ -13,26 +13,6 @@ Tr = 11
 Ec = 8  
 HERTZ = 50
 
-def setup(): # Motor initialization
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(Motor_A_EN, GPIO.OUT)
-    GPIO.setup(Motor_A_Pin1, GPIO.OUT)
-    GPIO.setup(Motor_A_Pin2, GPIO.OUT)
-    global pwm_A
-    pwm_A = GPIO.PWM(Motor_A_EN, HERTZ)
-    pwm_A.start(0)
-    motorStop()
-    
-    pwm = PCA9685()
-    pwm.set_pwm_freq(HERTZ)
-    
-    
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(Tr, GPIO.OUT)
-    GPIO.setup(Ec, GPIO.IN)
-    
 def motorStop(): # Motor stops
     GPIO.output(Motor_A_Pin1, GPIO.LOW)
     GPIO.output(Motor_A_Pin2, GPIO.LOW)
