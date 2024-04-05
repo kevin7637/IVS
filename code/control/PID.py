@@ -21,13 +21,13 @@ def yaw_controll(error,MAX_ERROR):
     #yaw값은 servo_tick = (-error + 0.3) * (500 - 100) / (0.3 - (-0.3)) + 100
     RIGHT_MAX = 500
     LEFT_MAX = 100
-    MAX_ERROR = 0.3
+    #MAX_ERROR = 0.3
     servo_tick = (-error + MAX_ERROR) * (RIGHT_MAX - LEFT_MAX) / (MAX_ERROR - (-MAX_ERROR)) + LEFT_MAX
     
-    if servo_tick > 400:
-        servo_tick = 400
-    if servo_tick  <200:
-        servo_tick = 200
+    if servo_tick > 350:
+        servo_tick = 350
+    if servo_tick  <250:
+        servo_tick = 250
     
     return servo_tick
 

@@ -20,9 +20,13 @@ def main():
     cv2.destroyAllWindows() #이후 openCV창을 종료합니다.
     
 def point_tracking(image):
-    _, binary_image = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY)
 
-    contours, _ = cv2.findContours(binary_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    _, binary_image = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)
+
+    contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
 
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]  
 
@@ -33,21 +37,22 @@ def point_tracking(image):
 
     cv2.drawContours(mask, [longest_contour], -1, color=0, thickness=-1)
 
-    M = cv2.moments(mask)
+    
+    for contour in contours:
+        M = cv2.moments(contour)
+        if M["m00"] != 0:
+            centroid_x = int(M["m10"] / M["m00"])
+            centroid_y = int(M["m01"] / M["m00"])
+        else:
 
-    if M["m00"] != 0:
-        centroid_x = int(M["m10"] / M["m00"])
-        centroid_y = int(M["m01"] / M["m00"])
-    else:
-        centroid_x = mask.shape[1] // 2
-        centroid_y = mask.shape[0] // 2
+            centroid_x, centroid_y = 0, 0
 
     output_image = image.copy()
     cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
 
     output_image = cv2.cvtColor(output_image, cv2.COLOR_BGR2RGB)
 
-    output_image_path = '/mnt/data/road_with_central_point.png'
+    output_image_path = '/road_with_central_point.png'
     cv2.imwrite(output_image_path, output_image)
 
     cv2.imshow("a", output_image)

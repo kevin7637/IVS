@@ -32,8 +32,8 @@ if __name__ == "__main__":
             distance = detectObstacle()
             distance_stop(distance)
             #좌표 = camera
-            coord = camera()
-            controller.ControllerInput(coord[])
+            #coord = camera()
+            controller.ControllerInput(-200)
             yaw_controll(controller.u)
         except KeyboardInterrupt:
             destroy()
