@@ -3,7 +3,7 @@ import cv2
 import math
 import random
 
-alpha = 0.1  
+alpha = 0.01  
 last_centroid = None 
 
 def camera_main():
@@ -45,4 +45,4 @@ def point_tracking(image):
             #cv2.imshow("Output", output_image)
             return (centroid_x, centroid_y),output_image  # Return the new centroid
 
-    return last_centroid  # Return the last known centroid if no new centroid was calculated
+    return last_centroid,image  # Return the last known centroid if no new centroid was calculated

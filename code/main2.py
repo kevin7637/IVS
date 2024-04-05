@@ -3,6 +3,8 @@ from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
 from camera.camera import *
+import time
+
 HERTZ = 50
 FAIL = -1
 WIDTH = 0
@@ -50,12 +52,14 @@ if __name__ == "__main__":
             cv2.waitKey(1)
             if centroid:
                 last_centroid = centroid
-            print(last_centroid[0])
-            controller.ControllerInput(last_centroid[0])
-            print(controller.u)
-            servo_tick = yaw_controll(controller.u,320)
-            print(servo_tick)
-            pwm.set_pwm(0, 0, servo_tick)
+                print(last_centroid[0])
+                controller.ControllerInput(last_centroid[0])
+                print(controller.u)
+                if last_centroid > 400 || last_centroid < 240:
+                    servo_tick = yaw_controll(controller.u,320)
+                    print(servo_tick)
+                    pwm.set_pwm(0, 0, servo_tick)
+            time.sleep(0.1)
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
             camera.release()

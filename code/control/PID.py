@@ -29,6 +29,6 @@ def yaw_controll(error,MAX_ERROR):
     if servo_tick  <200:
         servo_tick = 200
     
-    return servo_tick
+    return int(servo_tick)
 
     
