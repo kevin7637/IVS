@@ -50,7 +50,7 @@ def line_tracking():
 def distance_stop(distance):
     if distance < 0.2:
         motorStop()
-        time.sleep(0.01) 
+        time.sleep(3) 
     else:
         speed_set = 20
         move(speed_set, 'forward')
