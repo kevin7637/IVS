@@ -28,7 +28,7 @@ def point_tracking(image):
     _, binary_image = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)
 
     contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5] #2  
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:2] #2  
 
     for contour in contours:
         M = cv2.moments(contour)

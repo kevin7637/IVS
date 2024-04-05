@@ -55,9 +55,9 @@ if __name__ == "__main__":
                 print(last_centroid[0])
                 controller.ControllerInput(last_centroid[0])
                 print(controller.u)
-                if last_centroid > 400:
+                if last_centroid[0] > 370:
                     servo_tick = 350
-                elif last_centroid < 240:
+                elif last_centroid[0] < 270:
                     servo_tick = 250
                 else:
                     servo_tick = 300
