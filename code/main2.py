@@ -55,10 +55,15 @@ if __name__ == "__main__":
                 print(last_centroid[0])
                 controller.ControllerInput(last_centroid[0])
                 print(controller.u)
-                if last_centroid > 400 || last_centroid < 240:
-                    servo_tick = yaw_controll(controller.u,320)
-                    print(servo_tick)
-                    pwm.set_pwm(0, 0, servo_tick)
+                if last_centroid > 400:
+                    servo_tick = 350
+                elif last_centroid < 240:
+                    servo_tick = 250
+                else:
+                    servo_tick = 300
+                    #servo_tick = yaw_controll(controller.u,320)
+                    #print(servo_tick)
+                pwm.set_pwm(0, 0, servo_tick)
             time.sleep(0.1)
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
