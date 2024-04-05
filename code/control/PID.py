@@ -12,7 +12,7 @@ class PD_Controller(object):
         error = reference - measure
         error_d = (error - self.error_pre)/self.step_time
         self.u = self.kp*error + self.kd*error_d
-        self.pre = error
+        self.error_pre = error
         
 
 def yaw_controll(error,MAX_ERROR):

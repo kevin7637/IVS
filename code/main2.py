@@ -55,7 +55,7 @@ if __name__ == "__main__":
             print(controller.u)
             servo_tick = yaw_controll(controller.u,320)
             print(servo_tick)
-            #pwm.set_pwm(0, 0, servo_tick)
+            pwm.set_pwm(0, 0, servo_tick)
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
             camera.release()
