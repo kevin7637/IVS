@@ -8,6 +8,7 @@ last_centroid = None
 
 def camera_main():
     global last_centroid
+    global camera
     camera = cv2.VideoCapture(0) 
     camera.set(3,640)  
     camera.set(4,480)  
@@ -16,7 +17,7 @@ def camera_main():
     centroid = point_tracking(image)
     if centroid:
         last_centroid = centroid
-    camera.release()
+    #camera.release()
     return last_centroid
 def point_tracking(image):
     global last_centroid

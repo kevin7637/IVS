@@ -18,6 +18,17 @@ opt = 0
 cnt = 0
 pwm.set_pwm(0, 0, tick)
 
+global last_centroid
+global camera
+camera = cv2.VideoCapture(0) 
+camera.set(3,640)  
+camera.set(4,480)  
+
+
+#camera.release()
+
+
+
 def distance_stop(distance):
     if distance < 0.5:
         motorStop()
@@ -25,15 +36,20 @@ def distance_stop(distance):
     else:
         speed_set = 50
         move(speed_set, 'forward')
-        
+
+
+  
 if __name__ == "__main__":
     while True:
         try:
             distance = detectObstacle()
             distance_stop(distance)
             #좌표 = camera
-            coord = camera_main()
-            print(coord)
+            _, image = camera.read()
+            centroid = point_tracking(image)
+            if centroid:
+                last_centroid = centroid
+            print(last_centroid)
             controller.ControllerInput(-200)
             servo_tick = yaw_controll(controller.u,320)
             print(servo_tick)
