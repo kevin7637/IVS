@@ -16,10 +16,8 @@ def camera_main():
     centroid = point_tracking(image)
     if centroid:
         last_centroid = centroid
-
-    cv2.destroyAllWindows() 
     camera.release()
-
+    return last_centroid
 def point_tracking(image):
     global last_centroid
 
