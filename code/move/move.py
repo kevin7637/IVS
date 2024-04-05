@@ -86,7 +86,7 @@ def detectObstacle():
         
         dist = (t2 - t1) * 340 / 2
         
-        if dist > 9 and i < 4:
+        if dist > 10 and i < 4:
             continue
         else:
             return dist

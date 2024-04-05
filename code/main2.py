@@ -14,7 +14,6 @@ setup()
 measure = 0
 step_time = 0.1
 controller = PD_Controller(measure, step_time)
-speed_set = 50
 tick = 300
 opt = 0
 cnt = 0
@@ -49,9 +48,9 @@ def line_tracking():
     return status_right, status_middle, status_left
 
 def distance_stop(distance):
-    if distance < 0.5:
+    if distance < 0.2:
         motorStop()
-        time.sleep(0.1) 
+        time.sleep(0.01) 
     else:
         speed_set = 20
         move(speed_set, 'forward')
@@ -61,11 +60,12 @@ def distance_stop(distance):
 if __name__ == "__main__":
     while True:
         try:
-            move(speed_set, 'forward')
-            #distance = detectObstacle()
-            #distance_stop(distance)
+            #move(speed_set, 'forward')
+            distance = detectObstacle()
+            distance_stop(distance)
             #좌표 = camera
             _, image = camera.read()
+            image = image[260:, :]
             centroid,out_image = point_tracking(image)
             #cv2.imshow("image",out_image)
             #cv2.waitKey(1)
