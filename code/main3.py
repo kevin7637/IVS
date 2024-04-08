@@ -128,7 +128,7 @@ if __name__ == "__main__":
                 print(status_right,status_middle,status_left)
                 if status_right == 1 or status_middle == 1 or status_left == 1:
                     if centroid:
-                        centroid_history.append(centroid)
+                        #centroid_history.append(centroid)
                         last_centroid = centroid
                         print(last_centroid[0])
                         controller.ControllerInput(last_centroid[0])
