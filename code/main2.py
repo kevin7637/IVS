@@ -52,7 +52,31 @@ def distance_stop(distance):
     else:
         speed_set = 20
         move(speed_set, 'forward')
+        
+def move_robot(servo_angle, speed, duration):
+    pwm.set_pwm(0, 0, servo_angle)
+    move(speed, 'forward' if speed > 0 else 'backward')
+    time.sleep(duration)
 
+def avoid_obstacle():
+    distance = detectObstacle()
+    start_time = time.time()
+
+    if distance < 0.2:
+        motorStop()
+        time.sleep(1)
+
+        while True:
+            move_robot(300, basic_speed, 0.1)
+            distance = detectObstacle()
+            if distance >= 0.3:
+                move_robot(0, 0, 0.1)
+                break
+
+        move_robot(200, basic_speed + 20, 0.1)
+        move_robot(400, basic_speed + 20, 2)
+        move_robot(200, basic_speed + 20, 5)
+        move_robot(200, basic_speed + 20, 2)
 
   
 if __name__ == "__main__":
