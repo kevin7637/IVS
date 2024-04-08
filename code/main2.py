@@ -65,7 +65,7 @@ if __name__ == "__main__":
                 motorStop()
                 time.sleep(1)
                 while True:
-                    speed_set = 10
+                    speed_set = basic_speed
                     move(speed_set, 'backward')
                     distance = detectObstacle()
                     if distance >= 0.3:
