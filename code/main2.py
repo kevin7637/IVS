@@ -82,7 +82,7 @@ if __name__ == "__main__":
                     tf = time.time()
                     dt = tf - ti
                     print(dt)
-                    if dt > 2:
+                    if dt > 4:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
@@ -96,7 +96,7 @@ if __name__ == "__main__":
                     tf = time.time()
                     dt = tf - ti
                     print(dt)
-                    if dt > 4:
+                    if dt > 6:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
