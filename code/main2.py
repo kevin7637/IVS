@@ -92,6 +92,26 @@ if __name__ == "__main__":
                 time.sleep(0.1)
                 speed_set = 10
                 move(speed_set, 'forward')
+                while True:
+                    tf = time.time()
+                    dt = tf - ti
+                    print(dt)
+                    if dt > 4:
+                        speed_set = 0
+                        move(speed_set, 'forward')
+                        time.sleep(0.1)
+                        break
+                servo_tick = 200
+                pwm.set_pwm(0, 0, servo_tick)
+                time.sleep(0.1)
+                speed_set = 10
+                move(speed_set, 'forward')
+                while True:
+                    tf = time.time()
+                    dt = tf - ti
+                    print(dt)
+                    if dt > 2:
+                        break
             else: 
                 speed_set = 10
                 move(speed_set, 'forward')
