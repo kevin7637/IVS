@@ -89,6 +89,7 @@ if __name__ == "__main__":
                         break
                 servo_tick = 400
                 pwm.set_pwm(0, 0, servo_tick)
+                time.sleep(0.1)
                 speed_set = 10
                 move(speed_set, 'forward')
             else: 
