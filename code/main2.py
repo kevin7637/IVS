@@ -82,7 +82,7 @@ if __name__ == "__main__":
                 while True:
                     tf = time.time()
                     dt = tf - ti
-                    if dt > 5:
+                    if dt > 2:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
                     tf = time.time()
                     dt = tf - ti
                     print(dt)
-                    if dt > 10:
+                    if dt > 5:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
@@ -131,10 +131,10 @@ if __name__ == "__main__":
                         print(last_centroid[0])
                         controller.ControllerInput(last_centroid[0])
                         print(controller.u)
-                        if last_centroid[0] > 370:
+                        if last_centroid[0] > 400:
                             #servo_tick = 350
                             servo_tick = yaw_controll(controller.u,320)
-                        elif last_centroid[0] < 270:
+                        elif last_centroid[0] < 240:
                             #servo_tick = 250
                             servo_tick = yaw_controll(controller.u,320)
                         else:
