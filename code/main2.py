@@ -65,6 +65,9 @@ if __name__ == "__main__":
                 motorStop()
                 time.sleep(1)
                 while True:
+                    servo_tick = 300
+                    pwm.set_pwm(0, 0, servo_tick)
+                    time.sleep(0.1)
                     speed_set = basic_speed
                     move(speed_set, 'backward')
                     distance = detectObstacle()
