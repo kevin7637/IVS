@@ -22,7 +22,7 @@ camera.set(4,480)
 servo_tick = 300
 pwm.set_pwm(0, 0, servo_tick)
 speed_set = 0
-basic_speed = 20
+basic_speed = 25
 #camera.release()
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
