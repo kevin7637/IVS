@@ -3,6 +3,7 @@ from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
 import time
+import cv2
 
 HERTZ = 50
 FAIL = -1
