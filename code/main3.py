@@ -84,8 +84,9 @@ def avoid_obstacle():
         move_robot(200, basic_speed + 20, 2)
 
 def point_tracking(image):
-
-
+    global sum_x
+    global sum_y
+    global count
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     _, binary_image = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)
