@@ -20,9 +20,7 @@ camera = cv2.VideoCapture(0)
 camera.set(3,640)  
 camera.set(4,480)  
 servo_tick = 300
-servo_tick2 = 300
 pwm.set_pwm(0, 0, servo_tick)
-pwm.set_pwm(2,0,servo_tick2) #250 오른쪽 봄
 speed_set = 0
 basic_speed = 20
 #camera.release()
@@ -103,9 +101,7 @@ if __name__ == "__main__":
                         time.sleep(0.1)
                         break
                 servo_tick = 210
-                servo_tick2 = 390
                 pwm.set_pwm(0, 0, servo_tick)
-                prw.set_pwm(2,0,servo_tick2)
                 time.sleep(0.1)
                 speed_set = basic_speed
                 move(speed_set, 'forward')
@@ -137,15 +133,12 @@ if __name__ == "__main__":
                         print(controller.u)
                         if last_centroid[0] > 390:
                             servo_tick = 230
-                            servo_tick2 = 350
                             #servo_tick = yaw_controll(controller.u,320)
                         elif last_centroid[0] < 250:
                             servo_tick = 370
-                            servo_tick2 = 250
+
                             #servo_tick = yaw_controll(controller.u,320)
                         else:
-                            servo_tick = 300
-                            servo_tick2 = 300
                             #servo_tick = yaw_controll(controller.u,320)
                             #print(servo_tick)
                 else:
@@ -157,7 +150,6 @@ if __name__ == "__main__":
                         move(speed_set, 'backward')
                 print(last_centroid[0],servo_tick)
                 pwm.set_pwm(0, 0, servo_tick)
-                pwm.set_pwm(2,0,servo_tick2)
                 time.sleep(0.1)
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
