@@ -2,7 +2,7 @@ from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
-from camera.camera2 import *
+from camera.camera3 import *
 import time
 
 HERTZ = 50
@@ -37,7 +37,6 @@ line_pin_left = 20
 Tr = 11           
 Ec = 8  
 HERTZ = 50
-centroid_history = deque(maxlen=history_length)
 
 def line_tracking():
     # 라인 트래킹 센서 측정
@@ -152,7 +151,6 @@ if __name__ == "__main__":
                     else:
                         move(speed_set, 'backward')
                 print(last_centroid[0],servo_tick)
-                print(centroid_history)
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
         except KeyboardInterrupt:

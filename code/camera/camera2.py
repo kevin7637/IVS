@@ -4,7 +4,7 @@ from collections import deque
 
 history_length = 10
 centroid_history = deque(maxlen=history_length)
-
+centroid_history.append((0,0))
 def main():
     camera = cv2.VideoCapture(0)
     camera.set(3, 640)
@@ -24,6 +24,7 @@ def main():
     camera.release()
 
 def point_tracking(image):
+    global centroid_history
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, binary_image = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -53,7 +54,7 @@ def point_tracking(image):
 
             return (centroid_x, centroid_y) , output_image
 
-    return centroid_history,image 
+    return centroid_history[-1], image 
 
 if __name__ == '__main__':
     main()
