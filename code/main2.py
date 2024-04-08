@@ -175,7 +175,7 @@ if __name__ == "__main__":
                         servo_tick = 230
                     else:
                         move(speed_set, 'backward')
-                print(last_centroid[0],servo_tick)
+                print(servo_tick)
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
         except KeyboardInterrupt:
