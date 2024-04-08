@@ -22,7 +22,7 @@ camera.set(4,480)
 servo_tick = 300
 pwm.set_pwm(0, 0, servo_tick)
 speed_set = 0
-basic_speed = 25
+basic_speed = 35
 #camera.release()
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             #move(speed_set, 'forward')
             distance = detectObstacle()
             ti = time.time()
-            if distance < 0.1:
+            if distance < 0.15:
                 motorStop()
                 time.sleep(1)
                 while True:
