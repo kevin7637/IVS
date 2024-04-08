@@ -2,7 +2,7 @@ from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
-from camera.camera2 import *
+from camera.camera import *
 import time
 
 HERTZ = 50

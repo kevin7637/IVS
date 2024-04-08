@@ -3,7 +3,7 @@ import cv2
 import math
 import random
 
-alpha = 0.01  
+alpha = 0.0001  
 last_centroid = None 
 
 def camera_main():
