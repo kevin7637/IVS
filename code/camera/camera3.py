@@ -22,9 +22,9 @@ def camera_main():
 
 def point_tracking(image):
     global last_centroid
-    global count = 0
-    global sum_x = 0
-    global sum_y = 0
+    global count
+    global sum_x
+    global sum_y
 
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
