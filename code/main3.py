@@ -84,6 +84,7 @@ def avoid_obstacle():
         move_robot(200, basic_speed + 20, 2)
 
 def point_tracking(image):
+    global last_centroid
     global sum_x
     global sum_y
     global count
