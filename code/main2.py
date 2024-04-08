@@ -22,7 +22,7 @@ camera.set(4,480)
 servo_tick = 300
 pwm.set_pwm(0, 0, servo_tick)
 speed_set = 0
-
+basic_speed = 30
 #camera.release()
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                 servo_tick = 200
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = 10
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 while True:
                     tf = time.time()
@@ -90,7 +90,7 @@ if __name__ == "__main__":
                 servo_tick = 400
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = 10
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 while True:
                     tf = time.time()
@@ -104,7 +104,7 @@ if __name__ == "__main__":
                 servo_tick = 200
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = 10
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 while True:
                     tf = time.time()
@@ -113,7 +113,7 @@ if __name__ == "__main__":
                     if dt > 2:
                         break
             else: 
-                speed_set = 10
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 #좌표 = camera
                 _, image = camera.read()
