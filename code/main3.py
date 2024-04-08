@@ -2,7 +2,6 @@ from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
-from camera.camera3 import *
 import time
 
 HERTZ = 50
@@ -37,6 +36,11 @@ line_pin_left = 20
 Tr = 11           
 Ec = 8  
 HERTZ = 50
+
+last_centroid = (0,0)
+count = 0
+sum_x = 0
+sum_y = 0
 
 def line_tracking():
     # 라인 트래킹 센서 측정
@@ -77,6 +81,38 @@ def avoid_obstacle():
         move_robot(400, basic_speed + 20, 2)
         move_robot(200, basic_speed + 20, 5)
         move_robot(200, basic_speed + 20, 2)
+
+def point_tracking(image):
+
+
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    _, binary_image = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)
+
+    contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:2] #2  
+
+    for contour in contours:
+        M = cv2.moments(contour)
+        if M["m00"] != 0:
+            centroid_x = int(M["m10"] / M["m00"])
+            centroid_y = int(M["m01"] / M["m00"])
+            if last_centroid:
+                avg_x = sum_x + centroid_x / count
+                avg_y = sum_y + centroid_y / count
+                centroid_x = int(last_centroid[0]*(1-alpha) + centroid_x*alpha)
+                centroid_y = int(last_centroid[1]*(1-alpha) + centroid_y*alpha)
+                sum_x += centroid_x
+                sum_y += centroid_y
+                count += 1
+
+            output_image = image.copy()
+            cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
+
+            #cv2.imshow("Output", output_image)
+            return (centroid_x, centroid_y),output_image  # Return the new centroid
+
+    return (0,0),image  # Return the last known centroid if no new centroid was calculated
 
   
 if __name__ == "__main__":
@@ -150,7 +186,7 @@ if __name__ == "__main__":
                         servo_tick = 230
                     else:
                         move(speed_set, 'backward')
-                print(last_centroid[0],servo_tick)
+                print(centroid[0],servo_tick)
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
         except KeyboardInterrupt:
