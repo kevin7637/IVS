@@ -122,6 +122,7 @@ if __name__ == "__main__":
                 _, image = camera.read()
                 image = image[260:, :]
                 centroid,out_image = point_tracking(image)
+                print(centroid)
                 #cv2.imshow("image",out_image)
                 #cv2.waitKey(1)
                 status_right, status_middle, status_left = line_tracking()
