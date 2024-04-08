@@ -62,7 +62,7 @@ def avoid_obstacle():
     distance = detectObstacle()
     start_time = time.time()
 
-    if distance < 0.2:
+    if distance < 0.3:
         motorStop()
         time.sleep(1)
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             #move(speed_set, 'forward')
             distance = detectObstacle()
             ti = time.time()
-            if distance < 0.2:
+            if distance < 0.3:
                 motorStop()
                 time.sleep(1)
                 while True:
@@ -95,7 +95,7 @@ if __name__ == "__main__":
                     speed_set = basic_speed
                     move(speed_set, 'backward')
                     distance = detectObstacle()
-                    if distance >= 0.3:
+                    if distance >= 0.4:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                     tf = time.time()
                     dt = tf - ti
                     print(dt)
-                    if dt > 5:
+                    if dt > 3.5:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
