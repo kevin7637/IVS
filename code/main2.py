@@ -78,6 +78,7 @@ if __name__ == "__main__":
                 time.sleep(0.1)
                 speed_set = basic_speed
                 move(speed_set, 'forward')
+                time.sleep(0.1)
                 while True:
                     tf = time.time()
                     dt = tf - ti
@@ -92,6 +93,7 @@ if __name__ == "__main__":
                 time.sleep(0.1)
                 speed_set = basic_speed
                 move(speed_set, 'forward')
+                time.sleep(0.1)
                 while True:
                     tf = time.time()
                     dt = tf - ti
@@ -106,6 +108,7 @@ if __name__ == "__main__":
                 time.sleep(0.1)
                 speed_set = basic_speed
                 move(speed_set, 'forward')
+                time.sleep(0.1)
                 while True:
                     tf = time.time()
                     dt = tf - ti
