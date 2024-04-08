@@ -95,7 +95,7 @@ if __name__ == "__main__":
                     speed_set = basic_speed
                     move(speed_set, 'backward')
                     distance = detectObstacle()
-                    if distance >= 0.4:
+                    if distance >= 0.3:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
