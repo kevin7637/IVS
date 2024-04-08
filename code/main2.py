@@ -2,7 +2,7 @@ from control.PID import *
 from trejectory.trejectory import *
 from move.move import*
 from Adafruit_PCA9685 import PCA9685
-from camera.camera import *
+from camera.camera2 import *
 import time
 
 HERTZ = 50
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             #move(speed_set, 'forward')
             distance = detectObstacle()
             ti = time.time()
-            if distance < 0.3:
+            if distance < 0.2:
                 motorStop()
                 time.sleep(1)
                 while True:
