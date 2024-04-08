@@ -109,11 +109,18 @@ if __name__ == "__main__":
                 while True:
                     tf = time.time()
                     dt = tf - ti
-                    if dt > 3:
+                    if dt > 3.5:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
                         break
+                    
+                servo_tick = 370
+                pwm.set_pwm(0, 0, servo_tick)
+                time.sleep(0.1)
+                speed_set = basic_speed
+                move(speed_set, 'forward')
+                time.sleep(1)
             else: 
                 speed_set = basic_speed
                 move(speed_set, 'forward')
