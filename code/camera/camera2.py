@@ -5,7 +5,7 @@ from collections import deque
 history_length = 10
 centroid_history = deque(maxlen=history_length)
 
-def camera_main():
+def main():
     camera = cv2.VideoCapture(0)
     camera.set(3, 640)
     camera.set(4, 480)
@@ -54,8 +54,8 @@ def point_tracking(image):
             return (centroid_x, centroid_y) , output_image
 
     return centroid_history,image 
-'''
+
 if __name__ == '__main__':
     main()
-'''
+
     
