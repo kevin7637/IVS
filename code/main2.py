@@ -76,13 +76,12 @@ if __name__ == "__main__":
                 servo_tick = 200
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed
+                speed_set = basic_speed+20
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
                     tf = time.time()
                     dt = tf - ti
-                    print(dt)
                     if dt > 5:
                         speed_set = 0
                         move(speed_set, 'forward')
@@ -91,7 +90,7 @@ if __name__ == "__main__":
                 servo_tick = 400
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed
+                speed_set = basic_speed+20
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
@@ -106,7 +105,7 @@ if __name__ == "__main__":
                 servo_tick = 200
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed
+                speed_set = basic_speed+20
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
