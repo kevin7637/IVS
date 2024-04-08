@@ -39,7 +39,7 @@ Ec = 8
 HERTZ = 50
 
 last_centroid = (0,0)
-count = 0
+count = 1
 sum_x = 0
 sum_y = 0
 
