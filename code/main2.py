@@ -22,7 +22,7 @@ camera.set(4,480)
 servo_tick = 300
 pwm.set_pwm(0, 0, servo_tick)
 speed_set = 0
-basic_speed = 0
+basic_speed = 20
 #camera.release()
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
                         move(speed_set, 'forward')
                         time.sleep(0.1)
                         break
-                servo_tick = 200
+                servo_tick = 230
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
                 speed_set = basic_speed+20
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                         move(speed_set, 'forward')
                         time.sleep(0.1)
                         break
-                servo_tick = 400
+                servo_tick = 370
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
                 speed_set = basic_speed+20
@@ -129,7 +129,7 @@ if __name__ == "__main__":
                         move(speed_set, 'forward')
                         time.sleep(0.1)
                         break
-                servo_tick = 200
+                servo_tick = 230
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
                 speed_set = basic_speed+20
@@ -158,11 +158,11 @@ if __name__ == "__main__":
                         print(last_centroid[0])
                         controller.ControllerInput(last_centroid[0])
                         print(controller.u)
-                        if last_centroid[0] > 370:
-                            servo_tick = 400
+                        if last_centroid[0] > 390:
+                            servo_tick = 230
                             #servo_tick = yaw_controll(controller.u,320)
-                        elif last_centroid[0] < 270:
-                            servo_tick = 200
+                        elif last_centroid[0] < 250:
+                            servo_tick = 370
                             #servo_tick = yaw_controll(controller.u,320)
                         else:
                             servo_tick = 300
@@ -170,9 +170,9 @@ if __name__ == "__main__":
                             #print(servo_tick)
                 else:
                     if status_right == 0 or (status_right == 0 and status_middle == 0):# 오른쪽이 나가면 왼쪽으로
-                        servo_tick = 200
+                        servo_tick = 370
                     elif status_left == 0 or (status_left == 0 and status_middle == 0 ):
-                        servo_tick = 400
+                        servo_tick = 230
                     else:
                         move(speed_set, 'backward')
                 pwm.set_pwm(0, 0, servo_tick)
