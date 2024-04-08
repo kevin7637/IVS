@@ -12,7 +12,7 @@ def main():
 
     while(camera.isOpened()):
         _, image = camera.read()
-        centroid = point_tracking(image)
+        centroid,image = point_tracking(image)
 
         if centroid:
             centroid_history.append(centroid)

@@ -37,7 +37,8 @@ line_pin_left = 20
 Tr = 11           
 Ec = 8  
 HERTZ = 50
-    
+centroid_history = deque(maxlen=history_length)
+
 def line_tracking():
     # 라인 트래킹 센서 측정
     status_right = GPIO.input(line_pin_right)
@@ -127,6 +128,7 @@ if __name__ == "__main__":
                 print(status_right,status_middle,status_left)
                 if status_right == 1 or status_middle == 1 or status_left == 1:
                     if centroid:
+                        centroid_history.append(centroid)
                         last_centroid = centroid
                         print(last_centroid[0])
                         controller.ControllerInput(last_centroid[0])
