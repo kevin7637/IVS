@@ -158,11 +158,11 @@ if __name__ == "__main__":
                         print(last_centroid[0])
                         controller.ControllerInput(last_centroid[0])
                         print(controller.u)
-                        if last_centroid[0] > 400:
-                            servo_tick = 350
+                        if last_centroid[0] > 370:
+                            servo_tick = 400
                             #servo_tick = yaw_controll(controller.u,320)
-                        elif last_centroid[0] < 240:
-                            servo_tick = 250
+                        elif last_centroid[0] < 270:
+                            servo_tick = 200
                             #servo_tick = yaw_controll(controller.u,320)
                         else:
                             servo_tick = 300
