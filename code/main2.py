@@ -22,7 +22,7 @@ camera.set(4,480)
 servo_tick = 300
 pwm.set_pwm(0, 0, servo_tick)
 speed_set = 0
-basic_speed = 30
+basic_speed = 20
 #camera.release()
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
                 while True:
                     tf = time.time()
                     dt = tf - ti
-                    if dt > 4:
+                    if dt > 4.5:
                         speed_set = 0
                         move(speed_set, 'forward')
                         time.sleep(0.1)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                     tf = time.time()
                     dt = tf - ti
                     print(dt)
-                    if dt > 2:
+                    if dt > 7:
                         break
             else: 
                 speed_set = basic_speed
