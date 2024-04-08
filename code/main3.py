@@ -151,6 +151,7 @@ if __name__ == "__main__":
                     else:
                         move(speed_set, 'backward')
                 print(last_centroid[0],servo_tick)
+                print(centroid_history)
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
         except KeyboardInterrupt:
