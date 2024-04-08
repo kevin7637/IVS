@@ -48,7 +48,7 @@ def point_tracking(image):
                 centroid_y = int((avg_y + centroid_y) / 2)
 
             output_image = image.copy()
-            #cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
+            cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
             #cv2.imshow("Output", output_image)
 
             return (centroid_x, centroid_y) , output_image
