@@ -75,11 +75,13 @@ if __name__ == "__main__":
                         break
                 servo_tick = 200
                 pwm.set_pwm(0, 0, servo_tick)
+                time.sleep(0.1)
                 speed_set = 10
                 move(speed_set, 'forward')
                 while True:
                     tf = time.time()
                     dt = tf - ti
+                    print(dt)
                     if dt > 2:
                         speed_set = 0
                         move(speed_set, 'forward')
@@ -120,7 +122,7 @@ if __name__ == "__main__":
                     if status_right == 0 or (status_right == 0 and status_middle == 0):# 오른쪽이 나가면 왼쪽으로
                         servo_tick = 200
                     elif status_left == 0 or (status_left == 0 and status_middle == 0 ):
-                        servo_tick = 300
+                        servo_tick = 400
                     else:
                         move(speed_set, 'backward')
                 pwm.set_pwm(0, 0, servo_tick)
