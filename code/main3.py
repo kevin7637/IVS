@@ -38,7 +38,7 @@ Tr = 11
 Ec = 8  
 HERTZ = 50
 
-last_centroid = (0,0)
+last_centroid = None
 count = 1
 sum_x = 0
 sum_y = 0
@@ -114,9 +114,9 @@ def point_tracking(image):
             cv2.circle(output_image, (centroid_x, centroid_y), 10, (100, 100, 100), -1)
 
             #cv2.imshow("Output", output_image)
-            return (centroid_x, centroid_y),output_image  # Return the new centroid
+            return (centroid_x, centroid_y), output_image  # Return the new centroid
 
-    return (0,0),image  # Return the last known centroid if no new centroid was calculated
+    return last_centroid ,image  # Return the last known centroid if no new centroid was calculated
 
   
 if __name__ == "__main__":
