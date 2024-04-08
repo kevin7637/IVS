@@ -136,9 +136,9 @@ if __name__ == "__main__":
                             #servo_tick = yaw_controll(controller.u,320)
                         elif last_centroid[0] < 250:
                             servo_tick = 370
-
                             #servo_tick = yaw_controll(controller.u,320)
                         else:
+                            servo_tick = 300
                             #servo_tick = yaw_controll(controller.u,320)
                             #print(servo_tick)
                 else:
