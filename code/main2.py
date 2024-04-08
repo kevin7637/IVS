@@ -103,7 +103,7 @@ if __name__ == "__main__":
                 servo_tick = 210
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed+20
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
@@ -117,7 +117,7 @@ if __name__ == "__main__":
                 servo_tick = 370
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed+20
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
@@ -132,7 +132,7 @@ if __name__ == "__main__":
                 servo_tick = 210
                 pwm.set_pwm(0, 0, servo_tick)
                 time.sleep(0.1)
-                speed_set = basic_speed+20
+                speed_set = basic_speed
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 while True:
