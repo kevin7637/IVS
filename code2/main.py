@@ -48,7 +48,7 @@ def detectObstacle():
     # 초음파 센서로 거리 측정
     for i in range(5):
         GPIO.output(TRIG_PIN, GPIO.LOW)
-        time.sleep(0.000002)
+        time.sleep(0.1)
         GPIO.output(TRIG_PIN, GPIO.HIGH)
         time.sleep(0.00001)
         GPIO.output(TRIG_PIN, GPIO.LOW)
