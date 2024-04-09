@@ -13,7 +13,6 @@ camera = cv2.VideoCapture(0)
 camera.set(3,640)  
 camera.set(4,480)  
 servo_tick = 300
-pwm.set_pwm(0, 0, servo_tick)
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
 Motor_B_Pin2 = 15 
@@ -105,11 +104,14 @@ def destroy():
 
     
 if __name__ == "__main__":
+    pwm.set_pwm(0, 0, servo_tick)
+    motorStop()
     while True:
         try:
             distance = detectObstacle()
             if distance < 0.1:
                 motorStop()
+                time.sleep(1) 
             else: 
                 speed_set = BASIC_SPEED
                 move(speed_set, 'forward')
