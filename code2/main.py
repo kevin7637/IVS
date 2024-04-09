@@ -5,7 +5,7 @@ import cv2
 
 HERTZ = 50
 FAIL = -1
-BASIC_SPEED = 10
+BASIC_SPEED = 18
 CNT = 0
 pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
