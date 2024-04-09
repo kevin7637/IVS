@@ -38,8 +38,8 @@ pwm.set_pwm_freq(HERTZ)
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(Tr, GPIO.OUT)
-GPIO.setup(Ec, GPIO.IN)
+GPIO.setup(TRIG_PIN, GPIO.OUT)
+GPIO.setup(ECHO_PIN, GPIO.IN)
 
 GPIO.setup(line_pin_right, GPIO.IN)
 GPIO.setup(line_pin_middle, GPIO.IN)
