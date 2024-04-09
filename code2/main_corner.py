@@ -13,7 +13,6 @@ pwm.set_pwm_freq(HERTZ)
 camera = cv2.VideoCapture(0) 
 camera.set(3,640)  
 camera.set(4,480)  
-servo_tick = 300
 Motor_B_EN = 4    
 Motor_B_Pin1 = 14 
 Motor_B_Pin2 = 15 
@@ -105,6 +104,7 @@ def destroy():
 
     
 if __name__ == "__main__":
+    servo_tick = 310
     pwm.set_pwm(0, 0, servo_tick)
     motorStop()
     while True:
