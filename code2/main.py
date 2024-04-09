@@ -5,7 +5,7 @@ import cv2
 
 HERTZ = 50
 FAIL = -1
-BASIC_SPEED = 28
+BASIC_SPEED = 100
 CNT = 0
 pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
@@ -63,11 +63,8 @@ def detectObstacle():
         t2 = time.time()
         
         dist = (t2 - t1) * 340 / 2
-        
-        if dist > 10 and i < 4:
-            continue
-        else:
-            return dist
+    
+        return dist
 
 def distance_stop(distance):
     if distance < 0.2:
@@ -107,9 +104,7 @@ def destroy():
 if __name__ == "__main__":
     while True:
         try:
-            #move(speed_set, 'forward')
             distance = detectObstacle()
-            print(distance)
             if distance < 0.1:
                 motorStop()
             else: 
