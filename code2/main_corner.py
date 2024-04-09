@@ -6,6 +6,7 @@ import cv2
 HERTZ = 50
 FAIL = -1
 BASIC_SPEED = 20
+MAX_SPEED = 100
 CNT = 0
 pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
@@ -119,6 +120,9 @@ if __name__ == "__main__":
                 move(speed_set, 'forward')
                 time.sleep(0.1)
                 if CNT == 0:
+                    speed_set = MAX_SPEED
+                    move(speed_set, 'forward')
+                    time.sleep(0.1)
                     servo_tick = 390
                     pwm.set_pwm(0, 0, servo_tick)
                     time.sleep(2)
