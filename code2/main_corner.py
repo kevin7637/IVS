@@ -104,7 +104,7 @@ def destroy():
 
     
 if __name__ == "__main__":
-    servo_tick = 310
+    servo_tick = 300
     pwm.set_pwm(0, 0, servo_tick)
     motorStop()
     while True:
