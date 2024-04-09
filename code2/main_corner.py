@@ -125,7 +125,7 @@ if __name__ == "__main__":
                     time.sleep(0.1)
                     servo_tick = 390
                     pwm.set_pwm(0, 0, servo_tick)
-                    time.sleep(1)
+                    time.sleep(0.8)
                     CNT += 1
                 else:
                     servo_tick = 300
