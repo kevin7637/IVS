@@ -5,7 +5,7 @@ import cv2
 
 HERTZ = 50
 FAIL = -1
-BASIC_SPEED = 100
+BASIC_SPEED = 50
 CNT = 0
 pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
@@ -63,8 +63,11 @@ def detectObstacle():
         t2 = time.time()
         
         dist = (t2 - t1) * 340 / 2
-    
-        return dist
+        
+        if dist > 10 and i < 4:
+            continue
+        else:
+            return dist
 
 def distance_stop(distance):
     if distance < 0.2:
