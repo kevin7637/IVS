@@ -97,8 +97,7 @@ def move(speed, direction): # speed = 0~100
 def motorStop(): # Motor stops
     GPIO.output(Motor_A_Pin1, GPIO.LOW)
     GPIO.output(Motor_A_Pin2, GPIO.LOW)
-    GPIO.output(Motor_A_EN, GPIO.LOW)
-    pwm_A.ChangeDutyCycle(0)    
+    GPIO.output(Motor_A_EN, GPIO.LOW) 
     
 def destroy():
     motorStop()
@@ -111,7 +110,6 @@ if __name__ == "__main__":
             #move(speed_set, 'forward')
             distance = detectObstacle()
             print(distance)
-            ti = time.time()
             if distance < 0.1:
                 motorStop()
             else: 
