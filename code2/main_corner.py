@@ -111,7 +111,7 @@ if __name__ == "__main__":
         try:
             distance = detectObstacle()
             print("sonic",distance)
-            if distance < 0.11:
+            if distance < 0.25:
                 print("STOP")
                 motorStop()
                 time.sleep(1) 
