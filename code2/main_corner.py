@@ -2,7 +2,6 @@ import time
 import RPi.GPIO as GPIO
 from Adafruit_PCA9685 import PCA9685
 import cv2
-import keyboard
 
 HERTZ = 50
 FAIL = -1
@@ -111,23 +110,23 @@ if __name__ == "__main__":
         try:
             distance = detectObstacle()
             print("sonic",distance)
-            if keyboard.is_pressed('t'):  # 'a' 키가 눌렸는지 확인
-                print("right_turn")
-                servo_tick = 390
-                pwm.set_pwm(0, 0, servo_tick)
-            if keyboard.is_pressed('s'):  # 'a' 키가 눌렸는지 확인
-                print("straight")
-                servo_tick = 300
-                pwm.set_pwm(0, 0, servo_tick)
             if distance < 0.11:
                 print("STOP")
                 motorStop()
                 time.sleep(1) 
-            else: 
+            else:
                 speed_set = BASIC_SPEED
                 move(speed_set, 'forward')
-                servo_tick = 390
-                pwm.set_pwm(0, 0, servo_tick)
+                time.sleep(0.1)
+                if CNT == 0:
+                    servo_tick = 390
+                    pwm.set_pwm(0, 0, servo_tick)
+                    time.sleep(2)
+                    CNT += 1
+                else:
+                    servo_tick = 300
+                    pwm.set_pwm(0, 0, servo_tick)
+                
             
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
