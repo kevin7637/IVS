@@ -109,7 +109,9 @@ if __name__ == "__main__":
     while True:
         try:
             distance = detectObstacle()
+            print(distance)
             if distance < 0.1:
+                print("FAIL")
                 motorStop()
                 time.sleep(1) 
             else: 
