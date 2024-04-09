@@ -45,32 +45,29 @@ GPIO.setup(line_pin_right, GPIO.IN)
 GPIO.setup(line_pin_middle, GPIO.IN)
 GPIO.setup(line_pin_left, GPIO.IN)
 
-def detectObstacle(num_measurements=3, timeout=0.1):
-    distances = []
-    
-    for _ in range(num_measurements):
+def detectObstacle():
+    # 초음파 센서로 거리 측정
+    for i in range(5):
         GPIO.output(TRIG_PIN, GPIO.LOW)
-        time.sleep(0.000002)    
+        time.sleep(0.000002)
         GPIO.output(TRIG_PIN, GPIO.HIGH)
         time.sleep(0.00001)
         GPIO.output(TRIG_PIN, GPIO.LOW)
         
-        pulse_start = time.time()
         while not GPIO.input(ECHO_PIN):
-            if time.time() - pulse_start > timeout:
-                break
+            pass
+        t1 = time.time()
         
-        pulse_end = time.time()
         while GPIO.input(ECHO_PIN):
-            if time.time() - pulse_end > timeout:
-                break
+            pass
+        t2 = time.time()
         
-        pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17150  # 340 m/s / 2
-        distances.append(distance)
-    
-    avg_distance = sum(distances) / len(distances)
-    return avg_distance
+        dist = (t2 - t1) * 340 / 2
+        
+        if dist > 10 and i < 4:
+            continue
+        else:
+            return dist
 
 def distance_stop(distance):
     if distance < 0.2:
@@ -113,8 +110,9 @@ if __name__ == "__main__":
         try:
             #move(speed_set, 'forward')
             distance = detectObstacle()
+            print(distance)
             ti = time.time()
-            if distance < 0.15:
+            if distance < 0.1:
                 motorStop()
             else: 
                 speed_set = BASIC_SPEED
