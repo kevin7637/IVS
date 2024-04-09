@@ -117,6 +117,8 @@ if __name__ == "__main__":
             else: 
                 speed_set = BASIC_SPEED
                 move(speed_set, 'forward')
+                servo_tick = 390
+                pwm.set_pwm(0, 0, servo_tick)
             
         except KeyboardInterrupt:
             cv2.destroyAllWindows() 
