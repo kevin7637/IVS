@@ -7,7 +7,7 @@ HERTZ = 50
 FAIL = -1
 BASIC_SPEED = 20
 MAX_SPEED = 100
-CNT = 0
+FLAG = 0
 pwm = PCA9685()
 pwm.set_pwm_freq(HERTZ)
 camera = cv2.VideoCapture(0) 
@@ -119,20 +119,21 @@ if __name__ == "__main__":
                 speed_set = BASIC_SPEED
                 move(speed_set, 'forward')
                 time.sleep(0.1)
-                if CNT == 0:
+                if FLAG == 0:
                     speed_set = MAX_SPEED
                     move(speed_set, 'forward')
                     time.sleep(0.1)
                     servo_tick = 390
                     pwm.set_pwm(0, 0, servo_tick)
                     time.sleep(0.8)
-                    CNT += 1
-                elif CNT == 1:
+                    FLAG += 1
+                elif FLAG == 1:
                     speed_set = BASIC_SPEED
                     move(speed_set, 'forward')                    
                     servo_tick = 280
                     pwm.set_pwm(0, 0, servo_tick)
                     time.sleep(0.1)
+                    FLAG += 1
                 else:
                     servo_tick = 300
                     pwm.set_pwm(0, 0, servo_tick)
