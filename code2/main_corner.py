@@ -127,6 +127,12 @@ if __name__ == "__main__":
                     pwm.set_pwm(0, 0, servo_tick)
                     time.sleep(0.8)
                     CNT += 1
+                elif CNT == 1:
+                    speed_set = BASIC_SPEED
+                    move(speed_set, 'forward')                    
+                    servo_tick = 280
+                    pwm.set_pwm(0, 0, servo_tick)
+                    time.sleep(0.1)
                 else:
                     servo_tick = 300
                     pwm.set_pwm(0, 0, servo_tick)
