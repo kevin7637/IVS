@@ -23,8 +23,8 @@ Motor_A_Pin2 = 18
 line_pin_right = 19
 line_pin_middle = 16
 line_pin_left = 20
-Tr = 11           
-Ec = 8  
+TRIG_PIN = 11           
+ECHO_PIN = 8  
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
