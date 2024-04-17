@@ -147,7 +147,7 @@ while cap.isOpened():
         
         steering_angle = pid_controller.update(feedback)
         #steering_angle = abs(steering_angle)
-        pulse = int((steering_angle * (412 - 200) / 180) + 306) 
+        pulse = int((steering_angle * (412 - 200) / 180) + 300) 
         time.sleep(delay)
         pwm.set_pwm(servo_channel, 0, pulse)
         print("===========")
