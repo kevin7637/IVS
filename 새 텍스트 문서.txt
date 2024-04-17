@@ -1,1 +1,4 @@
 192.168.137.215
+pi
+raspberr
+python IVS/project1_LaneDetection/mainTest_Seunghyun.py
