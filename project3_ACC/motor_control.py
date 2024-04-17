@@ -1,9 +1,9 @@
 import time
 import RPi.GPIO as GPIO
 
-Motor_A_EN = 4  # Motor_B_EN = 17
-Motor_A_Pin1 = 14 # Motor_B_Pin1 = 27
-Motor_A_Pin2 = 15 # Motor_B_Pin2 = 18
+Motor_A_EN = 17  # Motor_B_EN = 17
+Motor_A_Pin1 = 27 # Motor_B_Pin1 = 27
+Motor_A_Pin2 = 18 # Motor_B_Pin2 = 18
 
 # PWM 핀 설정
 PWM_FREQ = 1000  # PWM 주파수 (Hz)
@@ -34,12 +34,12 @@ def move(speed, direction):
     # Speed = 0~100
     speed = max(0, min(speed, 100))
 
-    if direction == 'forward':
+    if direction == 'backward':
         GPIO.output(Motor_A_Pin1, GPIO.HIGH)
         GPIO.output(Motor_A_Pin2, GPIO.LOW)
         pwm.ChangeDutyCycle(speed)  # PWM 듀티 사이클 변경
 
-    elif direction == 'backward':
+    elif direction == 'forward':
         GPIO.output(Motor_A_Pin1, GPIO.LOW)
         GPIO.output(Motor_A_Pin2, GPIO.HIGH)
         pwm.ChangeDutyCycle(speed)  # PWM 듀티 사이클 변경

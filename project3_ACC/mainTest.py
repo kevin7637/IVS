@@ -63,7 +63,7 @@ def main():
 
 
     pidVel = PIDControllerVel(Kp=1, Ki=0, Kd=0)
-    pidSteer = PIDController(Kp=0.05, Ki=0, Kd=0)
+    pidSteer = PIDController(Kp=0.05, Ki=0.0001, Kd=0.01)
     steerAngle = 0
     obstacleFlag = 0 
     laneChangeFlag = 0
@@ -127,23 +127,12 @@ def main():
 
             if obstacleFlag == 1:
                 motor_control.move(0, 'forward')
-                break
-                # left, middle, right = trackingmodule.run()
+                time.sleep(0.1)
                 
-                # # print('left: %d   middle: %d   right: %d\n'%(left,middle,right))
-                # steerAngle = 2
-                # if left == 0 and leftPrev == 1 and leftPrevPrev == 1:
-                #     print('[Lane Change Finish] Lane Sensor Detected')
-                #     obstacleFlag = 0
-                #     laneChangeFlag = 1
-                #     steerAngle = -8
-                # leftPrevPrev = leftPrev
-                # leftPrev = left
-            # print(steerAngle)
             if steerAngle >= 1.9 or steerAngle <= -1.9:
                 motor_control.move(max(min(80, 55 + acc), 30), 'forward')
             else:
-                motor_control.move(max(min(60, 47 + acc), 20), 'forward')
+                motor_control.move(max(min(60, 47 + acc), 25), 'forward')
 
             lateral_control.lateral_control(input_value=steerAngle) # -10 ~ 10
 

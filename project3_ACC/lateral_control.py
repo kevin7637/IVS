@@ -27,8 +27,8 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 def lateral_set():
     global pwm
     duty_on = 0
-    duty_off = 307
-    servo_channel = 2
+    duty_off = 300
+    servo_channel = 0
 
     print("PCA9685 servo control")
 
@@ -46,7 +46,7 @@ def lateral_control(input_value):
     millis = translate(value, -10, 10, 1, 2)
     tick = calc_ticks(millis, HERTZ)
 
-    servo_channel = 2
+    servo_channel = 0
     duty_on = 0
     duty_off = tick
 
