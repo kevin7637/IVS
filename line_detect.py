@@ -87,7 +87,7 @@ class PIDController:
 pid_controller = PIDController(Kp=0.42, Ki=0.0005, Kd=0.25, setpoint=0)
 motor.setup()
 cap = cv2.VideoCapture(0)
-move_speed = 85
+move_speed = 0
 motor.Forward(0)
 servo.Go()
 delay = 0
@@ -97,7 +97,7 @@ pwm = Adafruit_PCA9685.PCA9685()
 # Set PWM frequency (50Hz is typical for servos)
 pwm.set_pwm_freq(50)
 
-servo_channel = 4
+servo_channel = 0
 pwm.set_pwm(servo_channel, 0, 307)
 #pwm.set_pwm(0, 0, 100)
 #pwm.set_pwm(1, 0, 307)
