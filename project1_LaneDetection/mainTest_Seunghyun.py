@@ -71,7 +71,8 @@ def main():
     leftPrev = 0
     leftPrevPrev = 0
     stopSignFlag = 0
-
+    vel = 0 
+    
     try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 
@@ -102,7 +103,7 @@ def main():
                 diff = (mid_point - int(resize_w/2))
                 
             # print(mid_point, diff)
-            # cv2.imshow('blend', cv2.cvtColor(blend_frame, cv2.COLOR_RGB2BGR)), cv2.waitKey(1)
+            cv2.imshow('blend', cv2.cvtColor(blend_frame, cv2.COLOR_RGB2BGR)), cv2.waitKey(1)
 
             if diff is not None:
                  steerAngle = pidSteer.update(diff,steerAngle,time.time())
