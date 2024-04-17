@@ -84,7 +84,7 @@ class PIDController:
         return output
 
 #parameter
-pid_controller = PIDController(Kp=0.42, Ki=0.0005, Kd=0.25, setpoint=0)
+pid_controller = PIDController(Kp=0.42, Ki=0, Kd=0.25, setpoint=0)
 motor.setup()
 cap = cv2.VideoCapture(0)
 move_speed = 0
